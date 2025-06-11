@@ -1,0 +1,14 @@
+[
+  {
+    "id": "binary-tree-traversal",
+    "name": "Binary Tree Traversal",
+    "description": "In-order, Pre-order, Post-order traversal",
+    "component": "BinaryTreeTraversal"
+  },
+  {
+    "id": "bubble-sort",
+    "name": "Bubble Sort",
+    "description": "Visualize the bubble sort algorithm",
+    "component": "BubbleSort"
+  }
+]

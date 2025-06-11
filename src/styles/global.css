@@ -1,0 +1,41 @@
+:root {
+    --bg: #f0f0f3;
+    --card-bg: #f0f0f3;
+    --shadow-light: rgba(255,255,255,0.7);
+    --shadow-dark: rgba(0,0,0,0.2);
+}
+
+* { box-sizing: border-box; }
+body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg); color: #333;
+}
+.container {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+h1 { text-align: center; margin-bottom: 2rem; }
+.algo-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+.algo-card {
+    display: block;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: var(--card-bg);
+    box-shadow:
+            6px 6px 16px var(--shadow-dark),
+            -6px -6px 16px var(--shadow-light);
+    text-decoration: none; color: inherit;
+    transition: transform .2s, box-shadow .2s;
+}
+.algo-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+            8px 8px 16px var(--shadow-dark),
+            -8px -8px 16px var(--shadow-light);
+}
