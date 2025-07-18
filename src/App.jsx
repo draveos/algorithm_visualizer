@@ -1,21 +1,20 @@
-"use client"
-import Header from "./components/HomeComp/Header"
-import HeroSection from "./components/HomeComp/HeroSection"
-import InfoSection from "./components/HomeComp/InfoSection"
-import ContactSection from "./components/HomeComp/ContactSection"
-import AlgorithmSection from "./components/HomeComp/AlgorithmSection"
-import "./styles/global.css"
+"use client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/HomeComp/Header";
+import Home from "./pages/Home";
+import AlgorithmPage from "./pages/AlgorithmPage";
+import "./styles/global.css";
 
 export default function App() {
     return (
-        <div className="app">
+        <BrowserRouter>
             <Header />
-            <main>
-                <HeroSection />
-                <InfoSection />
-                <AlgorithmSection />
-                <ContactSection />
+            <main className="app">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/algorithm/:id" element={<AlgorithmPage />} />
+                </Routes>
             </main>
-        </div>
-    )
+        </BrowserRouter>
+    );
 }

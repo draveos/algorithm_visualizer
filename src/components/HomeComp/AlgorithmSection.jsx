@@ -56,8 +56,8 @@ export default function AlgorithmSection({ navigate }) {
     const visibleAlgorithms = algorithms.slice(currentIndex, currentIndex + cardsPerView)
 
     return (
-        <section ref={sectionRef} className="algorithm-section">
-            <div className="algorithm-container">
+        <section ref={sectionRef} className="algo-section">
+            <div className="algo-container">
                 <h2 className="section-title">Algorithm Gallery</h2>
                 <div className="gallery-container">
                     <button className="gallery-arrow gallery-arrow-left" onClick={prevSlide} disabled={currentIndex === 0}>

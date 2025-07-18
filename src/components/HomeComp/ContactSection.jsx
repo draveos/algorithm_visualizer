@@ -62,9 +62,9 @@ export default function ContactSection() {
             <div className="contact-container">
                 <div className="contact-content">
                     <div className="contact-header">
-                        <h2 className="contact-title">Let's Connect</h2>
+                        <h2 className="contact-title">Feedbacks are welcome!</h2>
                         <p className="contact-subtitle">
-                            Ready to discuss algorithms or have questions? I'd love to hear from you.
+                            Anything is fine. feel free to contact me. I will try to get back to you as soon as possible.
                         </p>
                     </div>
 
@@ -80,7 +80,7 @@ export default function ContactSection() {
                                 <div className="contact-info-content">
                                     <h3>Email</h3>
                                     <a href="mailto:example@gmail.com" className="contact-link">
-                                        example@gmail.com
+                                        draveos20@gmail.com
                                     </a>
                                 </div>
                             </div>
@@ -93,8 +93,8 @@ export default function ContactSection() {
                                     </svg>
                                 </div>
                                 <div className="contact-info-content">
-                                    <h3>Location</h3>
-                                    <p>Available Worldwide</p>
+                                    <h3>mails..contact..anything!</h3>
+                                    <p>Available anytime. Most likely.</p>
                                 </div>
                             </div>
 

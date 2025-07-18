@@ -15,13 +15,10 @@ export default function TreeInputPanel({ tree, onTreeUpdate }) {
 
     const collectNodeValues = (node, path, values) => {
         if (!node) return
-
         values.set(path || "root", node.val)
-
         if (node.left) {
             collectNodeValues(node.left, path ? `${path}.left` : "left", values)
         }
-
         if (node.right) {
             collectNodeValues(node.right, path ? `${path}.right` : "right", values)
         }
@@ -29,7 +26,6 @@ export default function TreeInputPanel({ tree, onTreeUpdate }) {
 
     const updateNodeValue = (path, newValue) => {
         if (!tree) return
-
         const newTree = JSON.parse(JSON.stringify(tree))
         updateTreeNode(newTree, path, newValue)
         onTreeUpdate(newTree)
@@ -40,10 +36,8 @@ export default function TreeInputPanel({ tree, onTreeUpdate }) {
             node.val = newValue
             return
         }
-
         const parts = path.split(".")
         let current = node
-
         for (let i = 0; i < parts.length - 1; i++) {
             const part = parts[i]
             if (part === "left" && current.left) {
@@ -52,7 +46,6 @@ export default function TreeInputPanel({ tree, onTreeUpdate }) {
                 current = current.right
             }
         }
-
         const lastPart = parts[parts.length - 1]
         if (lastPart === "left" && current.left) {
             current.left.val = newValue
@@ -69,43 +62,37 @@ export default function TreeInputPanel({ tree, onTreeUpdate }) {
 
     const getNodeCount = () => {
         if (!tree) return 0
-
         const count = (node) => {
             if (!node) return 0
             return 1 + count(node.left) + count(node.right)
         }
-
         return count(tree)
     }
 
     const getTreeHeight = () => {
         if (!tree) return 0
-
         const height = (node) => {
             if (!node) return 0
             return 1 + Math.max(height(node.left), height(node.right))
         }
-
         return height(tree)
     }
 
     if (!tree) {
         return (
-            <div className="input-panel">
-                <div className="empty-state">
-                    <div className="empty-icon">🌳</div>
-                    <h3>No Tree Loaded</h3>
-                    <p>Evaluate your Python code to start editing node values</p>
-                </div>
+            <div className="empty-state">
+                <div className="empty-icon">🌳</div>
+                <h3>No Tree Loaded</h3>
+                <p>Evaluate your Python code to start editing node values</p>
             </div>
         )
     }
 
     return (
-        <div className="input-panel">
-            <div className="panel-header">
+        <div>
+            <div className="card-header">
                 <h3>Tree Properties</h3>
-                <div className="tree-stats">
+                <div className="tree-stats" style={{ display: "flex", gap: "1rem" }}>
                     <div className="stat">
                         <span className="stat-label">Nodes:</span>
                         <span className="stat-value">{getNodeCount()}</span>
@@ -117,9 +104,9 @@ export default function TreeInputPanel({ tree, onTreeUpdate }) {
                 </div>
             </div>
 
-            <div className="node-inputs">
+            <div className="node-inputs" style={{ marginTop: "1rem" }}>
                 <h4>Edit Node Values</h4>
-                <div className="input-grid">
+                <div className="input-grid" style={{ maxHeight: "250px", overflowY: "auto" }}>
                     {Array.from(nodeValues.entries()).map(([path, value]) => (
                         <div key={path} className="input-group">
                             <label className="input-label">{path === "root" ? "Root" : path.replace(/\./g, " → ")}</label>

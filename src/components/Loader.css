@@ -1,0 +1,42 @@
+/* Wrapper: 가운데 정렬 */
+.loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* 회전 궤도 컨테이너 */
+.loader-orbit {
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+}
+
+/* 12개 점 */
+.loader-orbit span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--dot);
+    height: var(--dot);
+    margin: calc(var(--dot) / -2);
+    border-radius: 50%;
+    background: var(--primary-cyan);
+    box-shadow: 0 0 8px var(--primary-cyan);
+    animation: orbit var(--speed) linear infinite;
+    animation-delay: calc(var(--i) * -0.1s);
+}
+
+/* 텍스트 */
+.loader-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+}
+
+/* 궤도 애니메이션 */
+@keyframes orbit {
+    0%   { transform: rotate(calc(var(--i) * 30deg)) translate(calc(var(--size) / 2.5)); opacity: 1; }
+    100% { transform: rotate(calc(var(--i) * 30deg + 360deg)) translate(calc(var(--size) / 2.5)); opacity: 0; }
+}

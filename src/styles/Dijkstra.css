@@ -1,0 +1,286 @@
+/* Dijkstra's Algorithm - Smooth Static Animations */
+
+.dijkstra-container {
+    position: relative;
+}
+
+.graph-visualization {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.graph-visualization::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(34, 197, 94, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.graph-svg {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+}
+
+/* Smooth Line Filling Animations - No Movement */
+.graph-edge {
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 2;
+    fill: none;
+    transition: stroke 0.6s ease, stroke-width 0.6s ease;
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
+}
+
+.graph-edge.animating {
+    stroke: rgba(34, 197, 94, 0.6);
+    stroke-width: 4;
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: smoothEdgeFill 2s ease-out forwards;
+}
+
+@keyframes smoothEdgeFill {
+    0% {
+        stroke-dashoffset: 300;
+        stroke: rgba(34, 197, 94, 0.3);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke: rgba(34, 197, 94, 0.9);
+    }
+}
+
+.graph-edge.active {
+    stroke: rgba(34, 197, 94, 0.8);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.4));
+}
+
+.graph-edge.shortest-path {
+    stroke: rgba(255, 215, 0, 0.9);
+    stroke-width: 5;
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.6));
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: pathReveal 3s ease-in-out forwards;
+}
+
+@keyframes pathReveal {
+    0% {
+        stroke-dashoffset: 400;
+        stroke: rgba(255, 215, 0, 0.4);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        stroke: rgba(255, 215, 0, 1);
+    }
+}
+
+/* Static Node Transitions - No Movement */
+.graph-node {
+    cursor: pointer;
+    transition: all 0.8s ease;
+}
+
+.node-circle {
+    fill: rgba(160, 227, 211, 0.8);
+    stroke: rgba(160, 227, 211, 1);
+    stroke-width: 2;
+    transition: fill 0.8s ease, stroke 0.8s ease, stroke-width 0.8s ease, filter 0.8s ease;
+    filter: drop-shadow(0 2px 8px rgba(160, 227, 211, 0.2));
+}
+
+.node-circle.start {
+    fill: rgba(34, 197, 94, 0.9);
+    stroke: rgba(34, 197, 94, 1);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 15px rgba(34, 197, 94, 0.5));
+}
+
+.node-circle.target {
+    fill: rgba(239, 68, 68, 0.9);
+    stroke: rgba(239, 68, 68, 1);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.5));
+}
+
+.node-circle.visited {
+    fill: rgba(168, 85, 247, 0.8);
+    stroke: rgba(168, 85, 247, 1);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.4));
+}
+
+.node-circle.current {
+    fill: rgba(255, 215, 0, 0.9);
+    stroke: rgba(255, 215, 0, 1);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.7));
+}
+
+.node-label {
+    fill: white;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 14px;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.node-distance {
+    fill: rgba(255, 215, 0, 0.9);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 12px;
+    text-anchor: middle;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+    transition: opacity 0.6s ease;
+}
+
+.edge-weight {
+    fill: rgba(255, 255, 255, 0.8);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 11px;
+    text-anchor: middle;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8));
+}
+
+.dijkstra-stats {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: space-around;
+}
+
+.dijkstra-stat {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(34, 197, 94, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    flex: 1;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dijkstra-stat:hover {
+    border-color: rgba(34, 197, 94, 0.3);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.1);
+}
+
+.dijkstra-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.dijkstra-stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: rgba(34, 197, 94, 0.9);
+    font-family: "JetBrains Mono", monospace;
+    transition: color 0.3s ease;
+}
+
+.node-selector {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.node-select {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--algo-border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--text-light);
+    font-family: "JetBrains Mono", monospace;
+    min-width: 100px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.node-select:focus {
+    outline: none;
+    border-color: var(--primary-cyan);
+    box-shadow: 0 0 15px rgba(160, 227, 211, 0.3);
+}
+
+.distance-table {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.distance-table h4 {
+    color: var(--primary-cyan);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.distance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+}
+
+.distance-item {
+    background: rgba(160, 227, 211, 0.05);
+    border: 1px solid rgba(160, 227, 211, 0.1);
+    border-radius: 6px;
+    padding: 0.5rem;
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.9rem;
+    transition: background-color 0.6s ease, border-color 0.6s ease, color 0.6s ease;
+}
+
+.distance-item.current {
+    border-color: rgba(255, 215, 0, 0.5);
+    background: rgba(255, 215, 0, 0.1);
+    color: rgba(255, 215, 0, 0.9);
+}
+
+.distance-item.visited {
+    border-color: rgba(168, 85, 247, 0.5);
+    background: rgba(168, 85, 247, 0.1);
+    color: rgba(168, 85, 247, 0.9);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .node-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .node-select {
+        min-width: auto;
+    }
+
+    .distance-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

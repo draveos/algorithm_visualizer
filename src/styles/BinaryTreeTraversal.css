@@ -1,0 +1,389 @@
+/* Binary Tree Traversal Specific Styles */
+
+/* Tree Visualization Container */
+.tree-visualization {
+    position: relative;
+}
+
+.svg-container {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.svg-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.tree-svg {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
+}
+
+/* Elegant Connection Lines */
+.tree-link {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.15);
+    stroke-width: 2;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0.6;
+}
+
+.tree-link.active-path {
+    stroke: rgba(255, 215, 0, 0.4);
+    stroke-width: 3;
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+    animation: pathGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes pathGlow {
+    from {
+        stroke: rgba(255, 215, 0, 0.4);
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+    }
+    to {
+        stroke: rgba(255, 215, 0, 0.7);
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+    }
+}
+
+/* Light Bulb Nodes */
+.tree-node {
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.node-circle {
+    fill: #2a2a3e;
+    stroke: rgba(255, 215, 0, 0.6);
+    stroke-width: 2;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
+.node-circle:hover {
+    fill: rgba(255, 215, 0, 0.1);
+    stroke: rgba(255, 215, 0, 0.8);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4)) drop-shadow(0 0 30px rgba(255, 215, 0, 0.2));
+}
+
+/* Highlighted Node - Light Bulb Effect */
+.node-circle.highlighted {
+    fill: rgba(255, 215, 0, 0.9);
+    stroke: rgba(255, 255, 255, 0.9);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 40px rgba(255, 215, 0, 0.4))
+    drop-shadow(0 0 60px rgba(255, 255, 255, 0.2));
+}
+
+@keyframes lightBulbGlow {
+    0% {
+        fill: rgba(255, 215, 0, 0.9);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)) drop-shadow(0 0 40px rgba(255, 215, 0, 0.4))
+        drop-shadow(0 0 60px rgba(255, 255, 255, 0.2));
+    }
+    50% {
+        fill: rgba(255, 235, 59, 0.95);
+        filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9)) drop-shadow(0 0 50px rgba(255, 215, 0, 0.5))
+        drop-shadow(0 0 80px rgba(255, 255, 255, 0.3));
+    }
+    100% {
+        fill: rgba(255, 193, 7, 0.85);
+        filter: drop-shadow(0 0 30px rgba(255, 215, 0, 1)) drop-shadow(0 0 60px rgba(255, 215, 0, 0.6))
+        drop-shadow(0 0 100px rgba(255, 255, 255, 0.4));
+    }
+}
+
+/* Node Text Styling */
+.node-text {
+    fill: rgba(255, 255, 255, 0.9);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 14px;
+    pointer-events: none;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    transition: all 0.6s ease;
+}
+
+.node-text.highlighted {
+    fill: #1a1a2e;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Traversal Order Indicators */
+.order-indicator {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 1;
+    stroke-dasharray: 3, 3;
+    opacity: 0;
+    transition: all 1s ease;
+    animation: orderReveal 1.5s ease-in-out;
+}
+
+@keyframes orderReveal {
+    0% {
+        opacity: 0;
+        stroke-dashoffset: 20;
+    }
+    50% {
+        opacity: 0.7;
+        stroke-dashoffset: 10;
+    }
+    100% {
+        opacity: 0.4;
+        stroke-dashoffset: 0;
+    }
+}
+
+.order-text {
+    fill: rgba(255, 255, 255, 0.8);
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    pointer-events: none;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+    opacity: 0;
+    animation: textFadeIn 1s ease-in-out 0.5s forwards;
+}
+
+@keyframes textFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
+}
+
+/* Tree Stats */
+.tree-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    min-width: 100px;
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.1);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
+.stat-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: rgba(255, 215, 0, 0.9);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    font-family: "JetBrains Mono", monospace;
+}
+
+/* Traversal Sequence */
+.traversal-sequence {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(26, 26, 46, 0.4) 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.sequence {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    min-height: 50px;
+    justify-content: center;
+}
+
+.sequence-item {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.9) 0%, rgba(255, 193, 7, 0.8) 100%);
+    color: #1a1a2e;
+    padding: 0.75rem 1.25rem;
+    border-radius: 25px;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation: sequenceGlow 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes sequenceGlow {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+        box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Traversal Info Badge */
+.traversal-info {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 25px;
+    padding: 1rem 1.5rem;
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1.5rem;
+}
+
+.traversal-type {
+    color: rgba(255, 215, 0, 0.9);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+/* Code Editor */
+.code-editor {
+    margin-bottom: 1.5rem;
+}
+
+.code-textarea {
+    width: 100%;
+    height: 250px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--algo-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: var(--text-light);
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    resize: vertical;
+    transition: var(--algo-transition);
+}
+
+.code-textarea:focus {
+    outline: none;
+    border-color: var(--primary-cyan);
+    box-shadow: var(--algo-glow);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Template Buttons */
+.template-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.template-btn {
+    background: rgba(160, 227, 211, 0.1);
+    border: 1px solid var(--algo-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--algo-spring);
+    backdrop-filter: blur(10px);
+}
+
+.template-btn:hover {
+    background: rgba(160, 227, 211, 0.2);
+    border-color: var(--primary-cyan);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(160, 227, 211, 0.2);
+}
+
+/* Node Inputs */
+.input-grid {
+    display: grid;
+    gap: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.node-input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--algo-border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--text-light);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+    transition: var(--algo-transition);
+}
+
+.node-input:focus {
+    outline: none;
+    border-color: var(--primary-cyan);
+    box-shadow: var(--algo-glow);
+    background: rgba(0, 0, 0, 0.6);
+}

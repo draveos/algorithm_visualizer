@@ -3,36 +3,42 @@
     "id": "bubble-sort",
     "name": "Bubble Sort",
     "description": "A simple sorting algorithm that repeatedly steps through the list",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "component": "BubbleSort"
   },
   {
     "id": "quick-sort",
     "name": "Quick Sort",
     "description": "An efficient divide-and-conquer sorting algorithm",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "component": "QuickSort"
   },
   {
     "id": "binary-search",
     "name": "Binary Search",
     "description": "A search algorithm that finds the position of a target value",
-    "difficulty": "Easy"
+    "difficulty": "Easy",
+    "component": "BinarySearch"
   },
   {
     "id": "dijkstra",
     "name": "Dijkstra's Algorithm",
     "description": "Finds the shortest paths between nodes in a graph",
-    "difficulty": "Hard"
+    "difficulty": "Hard",
+    "component": "Dijkstra"
   },
   {
     "id": "merge-sort",
     "name": "Merge Sort",
     "description": "An efficient, stable, comparison-based sorting algorithm",
-    "difficulty": "Medium"
+    "difficulty": "Medium",
+    "component": "MergeSort"
   },
   {
-    "id": "dfs",
-    "name": "Depth-First Search",
+    "id": "binary-tree-traversal",
+    "name": "Binary Tree Traversal",
     "description": "An algorithm for traversing or searching tree structures",
-    "difficulty": "Medium"
+    "difficulty": "Easy",
+    "component": "BinaryTreeTraversal"
   }
 ]
